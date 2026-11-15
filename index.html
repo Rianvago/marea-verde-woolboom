@@ -1,0 +1,901 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta name="claude:viewport-fit-sides" content="cover">
+<title>Marea Verde</title>
+<meta name="description" content="Marea Verde SpA, desde Puerto Aysén, y su producto estrella WoolBoom: barrera de absorción de hidrocarburos con lana de oveja.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&family=Lato:wght@400;700&family=Lilita+One&display=swap" rel="stylesheet">
+<style>
+  /* Sitio único Marea Verde + WoolBoom (2026-11-15).
+     Marea Verde es la casa: barra, pestañas y pie con su identidad (noche, turquesa, Montserrat/Lato).
+     La pestaña WoolBoom conserva su sabor (crema, Lilita One) como producto estrella.
+     Las pestañas cambian el contenido sin salir de la página; cada una tiene su #enlace. */
+  :root{
+    color-scheme:light;
+    --abismo:#004059;
+    --petroleo:#006579;
+    --turquesa:#00B9BD;
+    --verde-marea:#00998B;
+    --verde-osc:#00695F;
+    --menta-suave:#CDEAE5;
+    --hoja:#4CA73D;
+    --noche:#1E232D;
+    --marfil:#E9E2D4;
+    --espuma:#F2F7F6;
+    --blanco:#FFFFFF;
+    --tinta:#0C2A36;
+    --gris:#4C5F67;
+    --linea:#CFDDDA;
+    --lana:#F7F5F0;
+    --lana-linea:#E3DCCF;
+    --negro:#111111;
+    --texto-wb:#3F3B35;
+    --display:'Montserrat','Segoe UI',system-ui,sans-serif;
+    --body:'Lato','Segoe UI',system-ui,sans-serif;
+    --wb:'Lilita One','Arial Rounded MT Bold','Segoe UI',system-ui,sans-serif;
+    --gutter-l:max(24px,env(safe-area-inset-left,0px));
+    --gutter-r:max(24px,env(safe-area-inset-right,0px));
+    --nav-h:64px;
+  }
+  *{margin:0;padding:0;box-sizing:border-box}
+  html{scroll-behavior:smooth;scroll-padding-top:calc(var(--nav-h) + 12px)}
+  body{font-family:var(--body);color:var(--tinta);background:var(--espuma);line-height:1.65;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+  body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:70;background:var(--noche)}
+  img{max-width:100%;height:auto;display:block}
+  a{color:inherit;text-decoration:none}
+  a:focus-visible,button:focus-visible{outline:3px solid var(--turquesa);outline-offset:3px;border-radius:6px}
+  h1,h2,h3{font-family:var(--display);line-height:1.14;letter-spacing:-.01em;text-wrap:balance}
+  .wrap{max-width:1180px;margin:0 auto;padding-left:var(--gutter-l);padding-right:var(--gutter-r)}
+  h2{font-weight:300;font-size:clamp(2rem,3.8vw,3rem)}
+  .btn{
+    display:inline-flex;align-items:center;justify-content:center;gap:10px;font-family:var(--display);font-weight:600;font-size:.98rem;
+    background:var(--turquesa);color:var(--tinta);padding:15px 30px;border-radius:999px;border:2px solid var(--turquesa);cursor:pointer;
+    transition:background .25s ease,border-color .25s ease,color .25s ease,transform .25s ease;
+  }
+  .btn:hover{background:var(--marfil);border-color:var(--marfil)}
+  .btn.linea{background:transparent;border-color:rgba(233,226,212,.45);color:var(--marfil)}
+  .btn.linea:hover{background:var(--marfil);border-color:var(--marfil);color:var(--tinta)}
+  .btn svg{width:20px;height:20px;flex:none}
+  .acciones{display:flex;gap:12px;flex-wrap:wrap}
+  .eyebrow{display:block;font-family:var(--display);font-weight:600;font-size:.78rem;letter-spacing:.16em;text-transform:uppercase;color:var(--turquesa);margin-bottom:12px}
+  .eyebrow.oscuro{color:var(--verde-marea)}
+  [hidden]{display:none!important}
+
+  /* ===== BARRA Y PESTAÑAS ===== */
+  /* Paleta Marea en movimiento: la línea inferior, el logo y el nombre "fluyen" como la marea */
+  .barra{position:sticky;top:env(safe-area-inset-top,0px);z-index:60;background:rgba(30,35,45,.95);backdrop-filter:blur(12px);color:var(--marfil)}
+  .barra::after{content:"";position:absolute;left:0;right:0;bottom:-2px;height:3px;background:linear-gradient(90deg,var(--petroleo),var(--turquesa),var(--verde-marea),var(--hoja),var(--turquesa),var(--petroleo));background-size:200% 100%;animation:fluye 10s linear infinite}
+  @keyframes fluye{to{background-position:-200% 0}}
+  .barra-in{display:flex;align-items:center;justify-content:space-between;gap:16px;min-height:var(--nav-h);padding:8px var(--gutter-r) 8px var(--gutter-l);max-width:1180px;margin:0 auto}
+  .marca{display:flex;align-items:center;gap:12px;font-family:var(--display);font-weight:700;font-size:.95rem;letter-spacing:.2em;white-space:nowrap}
+  .marca-logo{width:68px;height:auto;overflow:visible;animation:logo-entra 1.2s cubic-bezier(.2,.8,.2,1) both}
+  .marca-logo path{transform-box:fill-box;transform-origin:50% 60%}
+  .marca:hover .marca-logo path{animation:logo-ola .9s ease-in-out}
+  @keyframes logo-entra{from{opacity:0;transform:translateY(6px) scale(.85);clip-path:inset(0 100% 0 0)}to{opacity:1;transform:none;clip-path:inset(0 0 0 0)}}
+  @keyframes logo-ola{30%{transform:rotate(-7deg) translateY(-2px)}65%{transform:rotate(5deg)}}
+  .marca-txt{background:linear-gradient(90deg,var(--turquesa),#7FE0D1 25%,var(--hoja) 50%,#7FE0D1 75%,var(--turquesa));background-size:200% 100%;-webkit-background-clip:text;background-clip:text;color:transparent;animation:fluye 8s linear infinite,aparece .8s .25s ease-out both}
+  @keyframes aparece{from{opacity:0;letter-spacing:.5em}to{opacity:1}}
+  .tabs{position:relative;display:flex;gap:6px;background:rgba(0,185,189,.07);border:1px solid rgba(0,185,189,.3);border-radius:999px;padding:5px;animation:baja .7s .15s cubic-bezier(.2,.8,.2,1) both}
+  @keyframes baja{from{opacity:0;transform:translateY(-10px)}to{opacity:1;transform:none}}
+  /* Píldora que se desliza bajo la pestaña activa */
+  .pista{position:absolute;left:0;top:5px;bottom:5px;width:0;border-radius:999px;background:linear-gradient(110deg,var(--turquesa),var(--verde-marea) 50%,var(--hoja));background-size:180% 100%;box-shadow:0 6px 18px -6px rgba(0,185,189,.7);opacity:0;pointer-events:none;animation:brillo 5s ease-in-out infinite alternate}
+  .pista.lista{opacity:1;transition:transform .5s cubic-bezier(.65,0,.25,1.2),width .5s cubic-bezier(.65,0,.25,1.2)}
+  @keyframes brillo{from{background-position:0 0}to{background-position:100% 0}}
+  .tab{position:relative;z-index:1;display:inline-flex;align-items:center;gap:8px;font-family:var(--display);font-weight:600;font-size:.9rem;padding:9px 18px;border-radius:999px;color:rgba(233,226,212,.82);white-space:nowrap;transition:color .3s}
+  .tab:hover{color:var(--turquesa)}
+  .tab[aria-selected="true"],.tab[aria-selected="true"]:hover{color:var(--tinta)}
+  html:not(.js) .tab[aria-selected="true"]{background:var(--turquesa)}
+  .tab .estrella{position:relative;overflow:hidden;font-size:.66rem;letter-spacing:.06em;text-transform:uppercase;background:linear-gradient(90deg,var(--hoja),var(--turquesa));color:var(--tinta);border-radius:999px;padding:2px 8px 2px 19px}
+  .tab .estrella::before{content:"★";position:absolute;left:7px;top:50%;font-size:.7rem;line-height:1;transform:translateY(-50%);animation:latido 2.4s ease-in-out infinite}
+  .tab .estrella::after{content:"";position:absolute;inset:0;background:linear-gradient(100deg,transparent 30%,rgba(255,255,255,.8) 50%,transparent 70%);transform:translateX(-120%);animation:destello 3.8s ease-in-out infinite}
+  @keyframes latido{0%,100%{transform:translateY(-50%) scale(1)}50%{transform:translateY(-50%) scale(1.3) rotate(18deg)}}
+  @keyframes destello{0%,55%{transform:translateX(-120%)}85%,100%{transform:translateX(120%)}}
+  .tab[aria-selected="true"] .estrella{background:var(--noche);color:#7FE0D1}
+  .barra-cta{font-family:var(--display);font-weight:600;font-size:.88rem;color:var(--marfil);padding:8px 18px;border-radius:999px;white-space:nowrap;border:1.5px solid transparent;background:linear-gradient(var(--noche),var(--noche)) padding-box,linear-gradient(120deg,var(--turquesa),var(--hoja)) border-box;transition:color .25s,box-shadow .25s,transform .25s;animation:baja .7s .3s cubic-bezier(.2,.8,.2,1) both}
+  .barra-cta:hover{background:linear-gradient(120deg,var(--turquesa),var(--hoja)) padding-box,linear-gradient(120deg,var(--turquesa),var(--hoja)) border-box;color:var(--tinta);box-shadow:0 8px 20px -8px rgba(76,167,61,.8);transform:translateY(-1px)}
+  @media(max-width:920px){
+    :root{--nav-h:112px}
+    .barra-in{flex-wrap:wrap;row-gap:8px}
+    .tabs{order:3;width:100%;justify-content:space-between}
+    .tab{flex:1;justify-content:center;padding:10px 6px;font-size:.86rem}
+    .tab .estrella{display:none}
+  }
+  @media(max-width:400px){.marca-txt{display:none}}
+
+  /* ===== PESTAÑA MAREA VERDE ===== */
+  .hero{position:relative;overflow:hidden;background:radial-gradient(90% 70% at 50% 34%,#2C3340 0%,var(--noche) 72%);color:var(--marfil)}
+  #tide{position:absolute;inset:0;width:100%;height:100%}
+  .hero-inner{position:relative;display:grid;justify-items:center;gap:14px;padding-block:28px 72px}
+  .hero-logo{width:min(600px,100%);--p:125%}
+  .hero-logo img{width:100%;filter:drop-shadow(0 16px 26px rgba(0,0,0,.42))}
+  .js .hero-logo.entra{-webkit-mask-image:linear-gradient(104deg,#000 var(--p),transparent calc(var(--p) + 16%));mask-image:linear-gradient(104deg,#000 var(--p),transparent calc(var(--p) + 16%))}
+  .lema{font-family:var(--display);font-weight:400;font-size:clamp(1rem,1.7vw,1.2rem);letter-spacing:.04em;text-align:center;text-wrap:balance}
+  .hero-texto{display:grid;grid-template-columns:1.1fr .9fr;gap:24px 64px;align-items:end;width:100%;margin-top:44px;padding-top:32px;border-top:1px solid rgba(233,226,212,.2)}
+  .hero-texto>*{min-width:0}
+  .hero h1{font-weight:300;font-size:clamp(2rem,3.6vw,3rem);color:var(--blanco)}
+  .hero-texto p{margin-bottom:22px;max-width:44ch;font-size:1.08rem}
+  @media(max-width:820px){.hero-texto{grid-template-columns:1fr;margin-top:28px}}
+
+  .estrella-sec{background:var(--blanco);padding-block:88px 96px}
+  .estrella-cab{display:grid;grid-template-columns:1fr 1fr;gap:16px 64px;align-items:end;margin-bottom:36px}
+  .estrella-cab>*{min-width:0}
+  .estrella-cab h2{color:var(--abismo)}
+  .estrella-cab p{color:var(--gris);font-size:1.08rem;max-width:52ch}
+  .estrella-prod{display:grid;grid-template-columns:1.2fr .8fr;gap:40px 56px;align-items:center}
+  .estrella-prod>*{min-width:0}
+  .estrella-foto{width:100%;-webkit-mask-image:linear-gradient(90deg,transparent,#000 7%,#000 95%,transparent),linear-gradient(180deg,transparent,#000 7%,#000 96%,transparent);-webkit-mask-composite:source-in;mask-image:linear-gradient(90deg,transparent,#000 7%,#000 95%,transparent),linear-gradient(180deg,transparent,#000 7%,#000 96%,transparent);mask-composite:intersect}
+  .estrella-prod h3{font-weight:500;font-size:clamp(1.35rem,2.3vw,1.7rem);margin-bottom:12px}
+  .estrella-prod p{color:var(--gris);margin-bottom:18px}
+  .sectores{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:26px;list-style:none}
+  .sectores li{border:1.5px solid var(--verde-marea);border-radius:999px;padding:5px 16px;font-family:var(--display);font-weight:500;font-size:.88rem;color:var(--verde-osc)}
+  .estrella-sec .btn:hover{background:var(--abismo);border-color:var(--abismo);color:var(--blanco)}
+  .mas{font-size:.94rem;margin-top:16px;margin-bottom:0!important;max-width:44ch}
+  .mas a{color:var(--verde-osc);font-weight:700;border-bottom:1.5px solid currentColor}
+  .estrella-datos{display:grid;grid-template-columns:repeat(4,1fr);gap:28px 40px;margin-top:44px;padding-top:32px;border-top:1px solid var(--linea)}
+  .estrella-datos>*{min-width:0}
+  .estrella-datos h3{font-weight:600;font-size:1.08rem;margin-bottom:6px}
+  .estrella-datos p{color:var(--gris)}
+  @media(max-width:1020px){.estrella-datos{grid-template-columns:1fr 1fr}}
+  @media(max-width:860px){.estrella-sec{padding-block:64px}.estrella-cab,.estrella-prod{grid-template-columns:1fr}}
+  @media(max-width:560px){.estrella-datos{grid-template-columns:1fr}}
+
+  .quienes{padding-block:96px}
+  .quienes-grid{display:grid;grid-template-columns:1.25fr .75fr;gap:64px;align-items:center}
+  .quienes-grid>*{min-width:0}
+  .quienes-lead{font-family:var(--display);font-weight:300;font-size:clamp(1.3rem,2.3vw,1.75rem);line-height:1.38;margin:22px 0 26px;color:var(--abismo)}
+  .quienes p+p{margin-top:14px}
+  .quienes-txt{max-width:62ch;color:var(--gris)}
+  .quienes-foto img{width:100%;aspect-ratio:4/5;object-fit:cover;object-position:50% 52%}
+  @media(max-width:860px){.quienes{padding-block:64px}.quienes-grid{grid-template-columns:1fr;gap:36px}.quienes-foto img{aspect-ratio:16/11;object-position:50% 47%}}
+
+  .marea{position:relative;overflow:hidden;background:var(--noche);height:max(300px,49.46vw)}
+  .marea img,.marea canvas{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+  .js .marea img{filter:grayscale(1) brightness(.5) contrast(1.05)}
+  .marea-texto{padding-block:44px 0;font-family:var(--display);font-weight:300;font-size:clamp(1.3rem,2.4vw,1.8rem);line-height:1.35;color:var(--abismo);max-width:34em;margin-inline:auto;text-align:center;text-wrap:balance}
+
+  .mueve{padding-block:80px 96px}
+  .fila{display:grid;grid-template-columns:.34fr .66fr;gap:10px 48px;padding-block:28px;border-top:1px solid var(--linea)}
+  .fila>*{min-width:0}
+  .mueve h2{margin-bottom:36px}
+  .fila h3{font-weight:500;font-size:1.3rem;color:var(--petroleo)}
+  .fila p{font-size:1.08rem;max-width:62ch}
+  .fila:last-child{border-bottom:1px solid var(--linea)}
+  @media(max-width:700px){.fila{grid-template-columns:1fr}}
+
+  .principios{background:var(--abismo);color:var(--marfil);padding-block:88px}
+  .principios h2{color:var(--blanco);margin-bottom:44px}
+  .ppl-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:28px}
+  .ppl{border-top:2px solid var(--turquesa);padding-top:18px;min-width:0}
+  .ppl h3{font-weight:500;font-size:1.04rem;line-height:1.25;color:var(--blanco);margin-bottom:10px;min-height:2.5em;hyphens:auto}
+  .ppl p{font-size:.97rem;line-height:1.55}
+  @media(max-width:1020px){.ppl-grid{grid-template-columns:repeat(2,1fr)}.ppl h3{min-height:0}}
+  @media(max-width:560px){.ppl-grid{grid-template-columns:1fr}}
+
+  /* ===== PESTAÑA WOOLBOOM (sabor de marca propio) ===== */
+  .wb{background:var(--lana);color:var(--negro);font-family:'Montserrat','Segoe UI',system-ui,sans-serif}
+  .wb h1,.wb h2,.wb h3{font-family:var(--wb);font-weight:400;letter-spacing:0;line-height:1.12}
+  .wb .btn{font-family:'Montserrat',sans-serif;background:var(--verde-marea);border-color:var(--verde-marea);color:var(--negro)}
+  .wb .btn:hover{transform:translateY(-3px);background:var(--verde-marea);border-color:var(--verde-marea);box-shadow:0 12px 26px rgba(0,153,139,.35)}
+  .wb .btn.ghost{background:transparent;border-color:currentColor;color:inherit}
+  .wb .btn.ghost:hover{background:var(--negro);border-color:var(--negro);color:var(--lana);box-shadow:none}
+  .wb .eyebrow{font-family:'Montserrat',sans-serif;color:var(--verde-marea)}
+  h2.sec{font-size:clamp(2rem,3.6vw,2.8rem);margin-bottom:14px}
+  .sec-intro{max-width:58ch;color:var(--texto-wb)}
+  .center{text-align:center}
+  .center .sec-intro{margin-inline:auto}
+
+  /* Portada WoolBoom (panorámica): la foto del lago sola, sin texto encima; el texto va debajo */
+  .pa-foto{position:relative;overflow:hidden;height:clamp(280px,44vw,560px)}
+  .pa-foto img{width:100%;height:100%;object-fit:cover;object-position:50% 46%}
+  .pa-foto::after{content:"";position:absolute;inset:auto 0 0;height:22%;background:linear-gradient(180deg,rgba(247,245,240,0),var(--lana))}
+  .pa-txt{text-align:center;padding-block:10px 40px}
+  .pa-txt h1{font-size:clamp(2.2rem,4.4vw,3.6rem);margin-bottom:14px}
+  .pa-txt p{max-width:60ch;margin:0 auto 24px;color:var(--texto-wb);font-size:1.05rem}
+  .pa-txt .acciones{justify-content:center}
+
+  /* Sello CORFO + territorio, destacado en la pestaña WoolBoom */
+  .respaldo-wb{padding-block:8px 24px}
+  .respaldo-card{display:grid;grid-template-columns:auto 1fr 1fr;gap:20px 40px;align-items:center;background:var(--blanco);border:1px solid var(--lana-linea);border-radius:28px;padding:24px 32px}
+  .respaldo-card>*{min-width:0}
+  .respaldo-card .corfo-logo{width:150px}
+  .resp-item{display:flex;gap:14px;align-items:flex-start}
+  .resp-item svg{flex:none;width:30px;height:30px;color:var(--verde-marea);margin-top:2px}
+  .resp-item b{display:block;font-family:var(--wb);font-weight:400;font-size:1.25rem;line-height:1.2;margin-bottom:2px}
+  .resp-item span{color:var(--texto-wb);font-size:.94rem}
+  @media(max-width:900px){.respaldo-card{grid-template-columns:1fr;padding:22px 22px}}
+
+  /* Producto */
+  .producto{padding-block:40px 40px}
+  .prod-card{display:grid;grid-template-columns:1.05fr .95fr;background:var(--blanco);border:1px solid var(--lana-linea);border-radius:40px;overflow:hidden;align-items:center}
+  .prod-card>*{min-width:0}
+  .prod-foto{padding:28px 10px 28px 28px}
+  .prod-txt{padding:44px 44px 44px 24px}
+  .prod-txt h2{font-size:clamp(2rem,3.4vw,2.8rem);margin-bottom:6px}
+  .prod-nombre{font-weight:700;font-size:1.06rem;line-height:1.4;color:var(--verde-osc);margin-bottom:18px}
+  .justo{text-align:justify;hyphens:auto;-webkit-hyphens:auto;color:var(--texto-wb);margin-bottom:14px}
+  .wb .sectores li{font-family:'Montserrat',sans-serif;font-weight:600;border-width:2px}
+  .etapa{display:flex;gap:12px;align-items:flex-start;background:var(--menta-suave);border-radius:18px;padding:14px 18px;font-size:.92rem;margin-bottom:24px}
+  .etapa svg{flex:none;width:22px;height:22px;margin-top:2px;color:var(--verde-osc)}
+  @media(max-width:900px){.prod-card{grid-template-columns:1fr}.prod-foto{padding:22px 22px 0}.prod-txt{padding:24px 26px 34px}}
+
+  /* Dos realidades: lana + mar = solución */
+  .realidades{padding-block:56px 40px}
+  .ecuacion{display:grid;grid-template-columns:1fr auto 1fr auto 1fr;gap:18px;align-items:center;margin-top:44px}
+  .ecuacion>*{min-width:0}
+  .termino{background:var(--blanco);border:1px solid var(--lana-linea);border-radius:28px;overflow:hidden;height:100%;display:flex;flex-direction:column}
+  .termino img{width:100%;aspect-ratio:4/3;object-fit:cover}
+  .termino div{padding:20px 22px 24px}
+  .termino h3{font-size:1.4rem;margin-bottom:6px}
+  .termino p{color:var(--texto-wb);font-size:.95rem}
+  .termino.resultado{background:var(--verde-marea);border-color:var(--verde-marea)}
+  .termino.resultado img{background:#fff;object-fit:contain;padding:10px}
+  .termino.resultado p{color:var(--negro)}
+  .signo{width:58px;height:58px;border-radius:50%;background:var(--negro);color:var(--lana);display:grid;place-items:center;font-family:var(--wb);font-size:2rem;line-height:1}
+  @media(max-width:860px){.ecuacion{grid-template-columns:1fr;justify-items:center}.termino{width:100%}.signo{width:50px;height:50px;font-size:1.7rem}}
+
+  /* Pasos */
+  .steps{padding-block:40px 64px}
+  .steps-row{display:grid;grid-template-columns:1fr 64px 1fr 64px 1fr;gap:14px;align-items:start;margin-top:52px}
+  .step{text-align:center;min-width:0}
+  .step-icon{width:104px;height:104px;border-radius:50%;margin:0 auto 22px;background:var(--verde-marea);display:flex;align-items:center;justify-content:center;position:relative}
+  .step-icon svg{width:50px;height:50px}
+  .step-icon::after{content:"";position:absolute;inset:-9px;border-radius:50%;border:2px dashed var(--verde-marea);opacity:.6}
+  .step h3{font-size:1.32rem;margin-bottom:8px}
+  .step p{color:var(--texto-wb);font-size:.96rem;max-width:30ch;margin-inline:auto}
+  .step-arrow{margin-top:40px;color:var(--verde-marea)}
+  .step-arrow svg{width:64px;height:26px;display:block}
+  @media(max-width:860px){.steps-row{grid-template-columns:1fr}.step-arrow{transform:rotate(90deg);margin:8px auto}}
+
+  /* Personas */
+  .personas{padding-block:24px 64px}
+  .about-grid{display:grid;grid-template-columns:.92fr 1.08fr;gap:52px;align-items:center}
+  .about-grid>*{min-width:0}
+  .fotos{display:grid;grid-template-columns:1.25fr 1fr;gap:14px}
+  .fotos img{width:100%;height:100%;object-fit:cover;border-radius:28px}
+  .fotos img:first-child{aspect-ratio:4/5}
+  .destacado{font-family:var(--wb);font-size:clamp(1.4rem,2.5vw,1.85rem);line-height:1.2;background:var(--verde-marea);border-radius:28px;padding:22px 26px;margin:22px 0}
+  .personas p.txt{color:var(--texto-wb);max-width:60ch}
+  @media(max-width:900px){.about-grid{grid-template-columns:1fr}}
+
+  /* Invitación a jugar */
+  .invita{padding-block:8px 80px}
+  .invita-card{position:relative;display:grid;grid-template-columns:auto 1fr auto;gap:20px 32px;align-items:center;background:var(--abismo);color:var(--lana);border-radius:32px;padding:26px 34px}
+  .invita-card>*{min-width:0}
+  .invita-card img{width:110px;margin-block:-30px -10px}
+  .invita-card h2{font-size:clamp(1.5rem,2.6vw,2rem);margin-bottom:4px}
+  .invita-card p{color:#D2E2E4}
+  @media(max-width:760px){.invita-card{grid-template-columns:1fr;text-align:center;justify-items:center}.invita-card img{margin:-60px 0 0}}
+
+  /* ===== PESTAÑA JUEGOS ===== */
+  /* Intro ilustrada: la lámina de la ovejita con una ficha retro encima */
+  .jp{position:relative;background:#7CCBEA url("./juegos/assets/portada_lanita.webp") 100% 40%/cover no-repeat;min-height:clamp(480px,46vw,620px);display:flex;align-items:center;font-family:'Montserrat',sans-serif;color:var(--negro)}
+  .jp .wrap{width:100%}
+  .jp-ficha{background:#FBF4E6;border:4px solid #141414;border-radius:26px;box-shadow:10px 10px 0 #141414;padding:30px 30px 32px;max-width:540px;animation:pop .7s .1s cubic-bezier(.2,.9,.3,1.25) both}
+  @keyframes pop{from{opacity:0;transform:translateY(26px) rotate(-2deg) scale(.96)}to{opacity:1;transform:none}}
+  .jp-ficha img{width:200px;margin-bottom:14px}
+  .jp h1{font-family:var(--wb);font-weight:400;letter-spacing:0;line-height:1.1;font-size:clamp(2rem,3.4vw,2.8rem);margin-bottom:12px}
+  .jp p{color:var(--texto-wb);margin-bottom:22px}
+  .jp .btn{font-family:'Montserrat',sans-serif;background:var(--verde-marea);color:var(--negro);border:3px solid #141414;box-shadow:5px 5px 0 #141414;border-radius:14px;padding:13px 20px;transition:transform .2s,box-shadow .2s}
+  .jp .btn:hover{transform:translate(-2px,-2px);box-shadow:7px 7px 0 #141414;background:var(--verde-marea);border-color:#141414}
+  .jp .btn.ghost,.jp .btn.ghost:hover{background:#FFD98A}
+  @media(max-width:760px){.jp{background-position:78% 0;background-size:auto 300px;background-color:#38B9DF;align-items:flex-end;padding-top:260px;padding-bottom:28px}.jp-ficha{box-shadow:6px 6px 0 #141414;padding:24px 22px 26px}}
+
+  .juegos{background:var(--abismo);color:var(--lana);padding-block:64px 88px}
+  .juegos-tit{font-family:var(--wb);font-weight:400;letter-spacing:0;font-size:clamp(1.9rem,3.4vw,2.6rem)}
+  .juegos-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:20px;margin-top:32px}
+  .juego{display:flex;flex-direction:column;background:var(--lana);color:var(--negro);border-radius:28px;overflow:hidden;min-width:0;font-family:'Montserrat',sans-serif}
+  .portada{position:relative;aspect-ratio:16/10;background:#00303F;overflow:hidden}
+  .portada>img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+  .portada .sp{position:absolute;width:auto;height:auto;inset:auto;object-fit:contain}
+  .portada .tipo{position:absolute;left:12px;top:12px;font-weight:600;font-size:.72rem;letter-spacing:.08em;text-transform:uppercase;background:var(--lana);border-radius:999px;padding:4px 12px}
+  .juego-cuerpo{display:flex;flex-direction:column;gap:8px;padding:20px 20px 22px;flex:1}
+  .juego h2{font-family:var(--wb);font-weight:400;letter-spacing:0;font-size:1.32rem}
+  .juego p{color:var(--texto-wb);font-size:.9rem;flex:1}
+  .meta{display:flex;gap:6px;flex-wrap:wrap;font-size:.76rem;font-weight:600;color:var(--verde-osc)}
+  .meta span{background:var(--menta-suave);border-radius:999px;padding:2px 10px}
+  .juego .btn{margin-top:8px;padding:12px 22px;font-family:'Montserrat',sans-serif;background:var(--verde-marea);border-color:var(--verde-marea);color:var(--negro)}
+  .juego .btn:hover{background:var(--turquesa);border-color:var(--turquesa)}
+  .nota{margin-top:22px;font-size:.86rem;color:#B9CDD1}
+  @media(max-width:1060px){.juegos-grid{grid-template-columns:repeat(2,1fr)}}
+  @media(max-width:560px){.juegos-grid{grid-template-columns:1fr}}
+
+  dialog.sala{border:0;padding:0;background:#0B1A20;color:var(--lana);width:min(1240px,100vw - 32px);max-width:none;max-height:none;border-radius:22px;overflow:hidden;margin:auto}
+  dialog.sala::backdrop{background:rgba(5,12,15,.82);backdrop-filter:blur(4px)}
+  .sala-top{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:10px 12px 10px 20px}
+  .sala-top b{font-family:var(--wb);font-weight:400;font-size:1.2rem}
+  .sala-top button{font:600 .86rem 'Montserrat',sans-serif;border-radius:999px;padding:8px 18px;border:0;background:var(--lana);color:var(--negro);cursor:pointer}
+  .sala iframe{display:block;width:100%;aspect-ratio:16/9;max-height:calc(100dvh - 120px);border:0;background:#0B1A20}
+  @media(max-width:760px),(max-height:520px){
+    dialog.sala{width:100vw;height:100dvh;border-radius:0}
+    dialog.sala[open]{display:flex;flex-direction:column}
+    .sala iframe{flex:1;aspect-ratio:auto;max-height:none}
+    .sala-top{padding-top:max(10px,env(safe-area-inset-top,0px))}
+  }
+
+  /* ===== PIE COMÚN ===== */
+  footer{background:var(--noche);color:var(--marfil)}
+  .contacto{display:grid;grid-template-columns:1fr 1fr;gap:36px 64px;align-items:center;padding-block:80px}
+  .contacto>*{min-width:0}
+  .contacto h2{color:var(--blanco);margin-bottom:14px}
+  .contacto p{max-width:44ch;opacity:.9}
+  .canales{list-style:none;display:grid;gap:12px}
+  .canal{display:flex;align-items:center;gap:16px;padding:14px 18px;border-radius:20px;background:rgba(233,226,212,.05);border:1px solid rgba(233,226,212,.14);transition:transform .25s,border-color .25s,background .25s}
+  a.canal:hover{transform:translateX(4px);border-color:var(--turquesa);background:rgba(0,185,189,.1)}
+  .canal-ico{flex:none;display:grid;place-items:center;width:44px;height:44px;border-radius:14px;background:linear-gradient(135deg,var(--turquesa),var(--hoja));color:var(--tinta)}
+  .canal-ico svg{width:22px;height:22px}
+  .canal.wsp .canal-ico{background:#25D366;color:#0B2B16}
+  .canal>span:last-child{min-width:0;display:grid;line-height:1.35}
+  .canal small{font-size:.76rem;letter-spacing:.1em;text-transform:uppercase;opacity:.7}
+  .canal b{font-weight:700;font-size:1.02rem;overflow-wrap:break-word}
+  @media(max-width:860px){.contacto{grid-template-columns:1fr;padding-block:60px}}
+  @media(max-width:420px){.canal{padding:14px;gap:12px}.canal-ico{width:40px;height:40px}.canal b{font-size:.94rem}}
+  .corfo{background:var(--blanco);color:var(--tinta)}
+  .corfo .wrap{display:flex;align-items:center;justify-content:space-between;gap:18px 40px;flex-wrap:wrap;padding-block:26px}
+  .corfo-sello{display:flex;align-items:center;gap:18px;flex-wrap:wrap}
+  .corfo-sello img{width:150px}
+  .corfo-sello span{font-size:.95rem;color:var(--gris)}
+  .corfo a{color:var(--abismo);font-weight:700;border-bottom:1.5px solid currentColor}
+  .corfo small{color:var(--gris);font-size:.9rem}
+
+  @media (prefers-reduced-motion:reduce){
+    html{scroll-behavior:auto}
+    *,*::before,*::after{transition-duration:.01ms!important;animation-duration:.01ms!important}
+    .barra::after,.marca-logo,.marca-logo path,.marca-txt,.tabs,.pista,.tab .estrella::before,.tab .estrella::after,.barra-cta,.jp-ficha{animation:none!important}
+  }
+</style>
+</head>
+<body>
+<script>document.documentElement.classList.add('js')</script>
+
+<header class="barra">
+  <div class="barra-in">
+    <a class="marca" href="#marea" aria-label="Marea Verde, ir al inicio"><svg class="marca-logo" viewBox="21.4 38.4 821.3 471.3" width="1000" height="574" aria-hidden="true" focusable="false"><defs><linearGradient id="mvOla" x1="0" y1="0" x2="1" y2="0" spreadMethod="repeat"><stop offset="0" stop-color="#00B9BD"/><stop offset=".35" stop-color="#00998B"/><stop offset=".6" stop-color="#4CA73D"/><stop offset=".8" stop-color="#7FE0D1"/><stop offset="1" stop-color="#00B9BD"/><animateTransform attributeName="gradientTransform" type="translate" from="0 0" to="1 0" dur="7s" repeatCount="indefinite"/></linearGradient></defs><path fill="url(#mvOla)" fill-rule="evenodd" d="M120.50 446.91C118.03 446.24 115.66 445.44 111.95 444.02C102.82 440.54 93.37 430.75 88.92 420.17C88.70 419.66 88.26 418.61 87.92 417.83C86.80 415.24 86.75 415.08 85.16 407.90C83.70 401.37 83.35 389.29 84.41 382.18C84.54 381.30 84.76 379.72 84.91 378.67C85.63 373.63 86.67 369.13 88.43 363.50C88.64 362.81 89.20 360.94 89.66 359.33C90.81 355.33 93.17 348.55 94.42 345.67C94.64 345.16 95.25 343.66 95.77 342.33C97.05 339.05 98.01 336.95 102.84 326.91C103.28 325.99 103.79 324.87 103.97 324.41C104.31 323.58 106.88 318.50 108.16 316.17C108.53 315.48 109.34 313.90 109.96 312.67C111.90 308.74 115.09 302.96 116.75 300.33C117.01 299.92 117.61 298.87 118.08 298.00C119.57 295.23 124.51 286.86 127.71 281.67C131.83 274.97 134.41 270.88 136.97 267.00C141.74 259.78 143.09 257.78 146.00 253.67C147.53 251.51 149.55 248.59 150.50 247.17C153.53 242.64 166.94 224.40 170.91 219.42C171.93 218.13 173.22 216.48 173.77 215.75C177.99 210.16 177.80 210.40 182.84 204.27C184.36 202.43 186.09 200.28 186.70 199.50C187.83 198.04 191.00 194.27 195.47 189.06C196.88 187.42 198.76 185.22 199.66 184.17C204.81 178.12 206.48 176.22 210.75 171.60C211.95 170.31 213.89 168.13 215.07 166.77C217.54 163.92 219.50 161.85 224.99 156.25C227.15 154.05 229.99 151.08 231.31 149.66C232.63 148.24 235.85 145.01 238.47 142.49C241.09 139.98 244.77 136.37 246.66 134.49C249.56 131.57 252.47 128.94 256.73 125.36C267.85 116.01 269.69 114.56 274.03 111.74C275.52 110.76 277.01 109.79 277.33 109.58C280.75 107.33 287.24 103.96 290.17 102.92C290.76 102.70 291.67 102.38 292.18 102.19C297.77 100.14 304.83 99.96 308.75 101.77C316.66 105.42 319.75 117.44 316.59 132.33C316.37 133.39 316.03 135.00 315.84 135.92C315.65 136.83 315.28 138.41 315.01 139.42C314.75 140.42 314.27 142.26 313.95 143.50C312.68 148.46 311.26 153.10 308.90 160.00C308.42 161.42 307.49 164.20 306.85 166.17C305.54 170.17 303.78 175.23 303.00 177.25C302.26 179.18 299.63 186.43 298.42 189.92C297.25 193.25 296.79 194.54 295.95 196.75C295.64 197.58 295.00 199.30 294.52 200.58C294.05 201.87 293.55 203.18 293.42 203.50C293.29 203.82 293.02 204.53 292.83 205.08C290.74 211.04 290.22 212.54 289.64 214.33C289.26 215.48 288.39 218.07 287.71 220.08C287.02 222.10 286.30 224.31 286.09 225.00C285.89 225.69 285.47 226.92 285.17 227.75C284.01 230.94 282.29 235.96 282.06 236.83C281.93 237.34 281.68 238.20 281.50 238.75C281.33 239.30 280.92 240.65 280.58 241.75C280.24 242.85 279.54 245.14 279.01 246.83C277.24 252.50 277.02 253.24 276.42 255.67C276.09 257.00 275.67 258.65 275.50 259.33C274.77 262.17 272.54 271.89 272.33 273.17C268.53 296.14 271.24 308.50 279.59 306.17C285.26 304.58 294.53 297.03 303.30 286.84C303.91 286.13 305.20 284.66 306.17 283.59C307.94 281.60 308.85 280.50 312.41 276.07C313.50 274.70 314.83 273.10 315.36 272.50C315.88 271.90 316.79 270.81 317.37 270.06C317.94 269.32 319.13 267.82 320.01 266.73C320.89 265.64 322.67 263.32 323.97 261.58C325.27 259.84 326.80 257.83 327.37 257.11C328.61 255.57 329.33 254.66 330.05 253.73C330.34 253.35 331.45 251.96 332.51 250.64C333.58 249.33 334.91 247.60 335.48 246.80C336.04 246.00 336.97 244.76 337.54 244.05C338.11 243.33 339.38 241.69 340.36 240.38C342.31 237.78 344.57 234.91 346.03 233.16C346.55 232.53 347.99 230.68 349.23 229.05C350.47 227.42 351.82 225.67 352.24 225.17C352.65 224.66 353.45 223.67 354.00 222.97C354.55 222.26 355.38 221.25 355.85 220.72C356.32 220.19 357.01 219.30 357.39 218.75C358.07 217.75 360.93 214.13 364.24 210.08C365.21 208.89 366.56 207.24 367.23 206.42C367.90 205.59 369.14 204.09 369.99 203.08C370.83 202.08 372.67 199.83 374.07 198.08C375.48 196.34 377.22 194.25 377.94 193.44C378.66 192.63 379.75 191.36 380.37 190.64C380.99 189.91 382.30 188.40 383.30 187.28C384.29 186.16 386.69 183.43 388.64 181.21C392.42 176.90 403.31 165.76 406.70 162.73C407.82 161.73 409.61 160.13 410.67 159.17C413.62 156.51 415.43 155.00 418.21 152.88C419.61 151.82 421.28 150.53 421.92 150.01C428.65 144.59 438.82 139.67 444.70 138.99C460.64 137.16 468.89 147.36 472.08 172.83C472.22 173.98 472.45 175.63 472.59 176.50C472.73 177.37 472.95 179.32 473.08 180.83C473.21 182.35 473.43 184.71 473.57 186.08C473.71 187.46 473.94 191.13 474.08 194.25C474.22 197.37 474.37 200.10 474.41 200.33C474.45 200.56 474.57 201.91 474.66 203.33C475.08 209.61 475.21 211.29 475.51 214.59C475.68 216.51 475.94 220.41 476.08 223.25C476.22 226.09 476.37 228.53 476.41 228.67C476.48 228.90 477.06 235.16 477.26 237.83C477.31 238.52 477.46 240.10 477.59 241.33C477.73 242.57 477.99 245.16 478.17 247.08C479.06 256.42 480.01 264.89 480.67 269.42C480.85 270.70 481.27 273.74 481.59 276.17C481.91 278.60 482.29 281.26 482.43 282.08C482.58 282.91 482.83 284.52 483.00 285.67C483.17 286.81 483.39 288.11 483.49 288.55C483.59 288.99 483.82 290.34 484.00 291.55C484.17 292.76 484.44 294.28 484.59 294.92C484.74 295.56 484.97 296.72 485.09 297.50C485.21 298.28 485.46 299.67 485.64 300.58C485.83 301.50 486.09 302.85 486.23 303.58C486.37 304.32 486.71 305.97 486.98 307.25C487.26 308.53 487.64 310.33 487.83 311.25C488.01 312.17 488.35 313.59 488.58 314.42C488.81 315.24 489.26 316.93 489.59 318.17C490.43 321.29 491.81 325.82 493.88 332.17C495.54 337.24 497.95 343.77 499.24 346.67C499.67 347.63 500.25 348.94 500.54 349.58C502.68 354.46 506.19 360.79 509.83 366.36C510.57 367.48 511.17 368.57 511.17 368.77C511.17 369.08 510.79 369.67 510.59 369.67C510.57 369.67 509.58 369.85 508.40 370.07C498.56 371.92 490.60 370.08 482.95 364.21C477.11 359.73 470.51 349.65 465.64 337.78C462.04 329.00 458.95 319.37 457.78 313.25C457.63 312.52 457.25 310.75 456.92 309.33C456.40 307.08 456.07 305.61 455.17 301.33C455.06 300.83 454.79 299.59 454.57 298.58C454.23 297.05 453.72 294.41 452.34 287.00C452.24 286.50 451.90 284.43 451.58 282.42C451.26 280.40 450.85 277.89 450.67 276.83C450.49 275.78 450.23 274.02 450.09 272.92C449.68 269.61 448.85 264.25 448.50 262.61C448.32 261.77 448.10 260.41 448.00 259.58C447.90 258.76 447.68 257.26 447.51 256.25C447.33 255.24 447.14 253.82 447.09 253.08C447.03 252.35 446.80 250.78 446.58 249.58C446.36 248.39 446.10 246.70 446.00 245.83C445.90 244.96 445.48 242.08 445.07 239.42C444.65 236.76 444.14 233.38 443.92 231.92C443.70 230.45 443.19 227.71 442.77 225.83C441.72 221.09 441.57 220.48 441.01 218.58C440.74 217.67 440.29 216.12 440.02 215.14C435.59 199.62 428.12 195.96 416.59 203.65C415.94 204.08 415.06 204.64 414.63 204.89C414.19 205.14 413.06 205.96 412.11 206.71C411.16 207.47 409.60 208.68 408.65 209.42C405.88 211.55 392.26 225.11 389.74 228.25C389.29 228.80 387.43 230.92 385.59 232.97C383.75 235.02 381.81 237.23 381.28 237.89C380.75 238.55 379.95 239.46 379.52 239.92C379.09 240.38 378.36 241.20 377.91 241.75C377.46 242.30 376.34 243.62 375.42 244.68C372.81 247.69 370.40 250.55 368.41 252.98C367.40 254.20 365.91 256.01 365.08 257.00C364.26 257.99 362.65 259.92 361.50 261.29C360.35 262.66 359.00 264.29 358.50 264.92C358.00 265.54 357.28 266.41 356.92 266.84C356.55 267.27 355.79 268.17 355.23 268.85C354.66 269.53 353.80 270.56 353.31 271.14C352.82 271.72 352.19 272.48 351.92 272.82C351.64 273.17 350.74 274.31 349.92 275.35C348.35 277.35 346.95 279.01 343.92 282.50C342.91 283.67 341.61 285.21 341.04 285.93C339.76 287.55 337.75 290.04 335.94 292.25C335.19 293.17 334.23 294.37 333.81 294.92C333.38 295.47 332.20 296.85 331.16 298.00C329.05 300.35 327.06 302.63 325.00 305.08C324.23 306.00 323.03 307.39 322.34 308.17C321.64 308.95 320.78 309.96 320.42 310.42C320.06 310.88 319.12 311.93 318.34 312.76C317.56 313.59 316.02 315.27 314.92 316.50C313.82 317.73 312.35 319.34 311.67 320.08C310.98 320.83 309.14 322.82 307.59 324.51C303.57 328.88 301.88 330.60 299.46 332.81C298.29 333.88 296.52 335.48 295.54 336.38C294.56 337.28 293.00 338.66 292.08 339.46C291.17 340.26 289.74 341.52 288.92 342.26C288.09 343.00 287.08 343.86 286.67 344.18C286.25 344.50 285.36 345.21 284.68 345.76C279.74 349.72 271.92 354.61 267.50 356.49C266.81 356.78 265.80 357.22 265.25 357.45C248.82 364.59 233.47 359.08 228.69 344.33C227.15 339.58 227.06 339.15 226.49 333.41C225.95 327.96 227.24 312.90 228.66 308.00C228.76 307.68 228.91 306.97 229.01 306.42C229.10 305.87 229.40 304.59 229.67 303.58C229.94 302.57 230.28 301.30 230.42 300.75C230.56 300.20 230.90 298.91 231.17 297.88C231.44 296.84 231.88 295.16 232.15 294.12C232.70 291.97 234.23 286.44 234.57 285.33C234.70 284.92 235.12 283.57 235.50 282.33C237.23 276.73 238.09 274.05 239.00 271.42C239.54 269.86 240.97 265.58 242.17 261.92C243.38 258.25 244.62 254.54 244.93 253.67C245.25 252.80 245.80 251.26 246.15 250.25C246.50 249.24 247.18 247.33 247.66 246.00C248.13 244.67 249.10 241.90 249.82 239.83C250.53 237.77 251.25 235.78 251.41 235.42C251.74 234.65 252.59 232.27 252.92 231.17C253.29 229.95 254.26 227.20 254.90 225.54C255.23 224.69 255.77 223.31 256.10 222.46C256.77 220.72 257.09 219.84 258.40 216.17C259.61 212.75 261.34 207.97 262.09 206.00C262.42 205.13 262.87 203.89 263.08 203.25C263.30 202.61 263.82 201.07 264.24 199.83C268.39 187.66 269.95 180.88 269.81 175.70C269.62 168.95 265.65 169.62 255.75 178.09C251.35 181.86 242.11 191.21 235.92 198.17C234.73 199.50 232.98 201.45 232.01 202.50C230.25 204.42 226.29 208.96 224.31 211.35C223.35 212.50 220.10 216.30 216.08 220.97C215.26 221.93 214.14 223.28 213.60 223.98C213.06 224.68 212.04 225.92 211.34 226.75C210.64 227.58 209.50 229.00 208.80 229.92C208.10 230.83 206.97 232.23 206.30 233.03C205.10 234.45 203.49 236.44 199.46 241.50C197.57 243.88 195.62 246.39 190.75 252.75C189.74 254.07 188.05 256.25 186.99 257.61C183.90 261.56 176.58 271.60 172.63 277.30C171.60 278.79 169.98 281.12 169.04 282.47C166.37 286.31 161.57 293.51 161.20 294.25C161.01 294.62 160.32 295.70 159.67 296.67C159.01 297.63 157.98 299.19 157.36 300.14C156.75 301.08 155.60 302.84 154.81 304.05C153.36 306.26 152.37 307.87 148.53 314.17C146.61 317.32 145.42 319.34 144.08 321.67C143.80 322.17 143.21 323.16 142.78 323.86C142.35 324.57 142.00 325.19 142.00 325.25C142.00 325.35 141.21 326.82 139.08 330.67C137.57 333.39 136.55 335.38 133.01 342.44C128.90 350.67 127.08 354.57 125.33 358.92C124.89 360.02 124.03 362.15 123.41 363.67C121.83 367.55 120.55 371.15 119.49 374.67C119.20 375.63 118.64 377.35 118.25 378.50C117.10 381.86 115.97 385.65 115.73 386.99C115.61 387.67 115.40 388.57 115.26 388.99C114.84 390.29 113.86 395.00 113.67 396.64C113.57 397.49 113.38 398.70 113.25 399.33C112.67 402.09 112.20 411.01 112.37 416.00C112.47 419.03 113.04 425.33 113.24 425.65C113.28 425.71 113.54 426.90 113.82 428.27C115.23 435.22 117.90 440.69 121.87 444.78C124.51 447.50 124.23 447.93 120.50 446.91ZM506.00 403.08C502.89 402.79 498.84 401.88 495.17 400.67C480.20 395.71 468.96 386.09 456.13 367.25C454.12 364.31 453.35 362.99 450.91 358.33C447.49 351.79 446.81 350.45 446.22 349.03C445.91 348.27 445.27 346.84 444.82 345.86C443.93 343.97 442.68 340.92 441.40 337.50C439.57 332.61 438.44 329.50 438.08 328.33C437.87 327.65 437.34 326.07 436.91 324.83C435.47 320.74 432.11 307.45 430.67 300.17C430.34 298.51 430.11 297.26 429.30 292.63C428.87 290.16 429.25 288.63 429.84 290.46C429.95 290.80 430.22 291.44 430.44 291.88C430.66 292.31 431.17 293.81 431.58 295.21C432.70 299.10 434.98 305.74 436.16 308.58C436.54 309.50 437.17 311.19 437.56 312.33C437.96 313.48 438.43 314.72 438.62 315.08C438.96 315.75 439.87 318.05 440.09 318.83C440.16 319.06 440.61 320.16 441.11 321.27C441.60 322.39 442.00 323.35 442.00 323.42C442.00 323.60 444.25 328.34 446.55 333.00C448.86 337.69 450.83 341.18 453.83 345.92C454.99 347.75 456.05 349.44 456.17 349.67C458.40 353.89 470.08 366.00 473.70 367.85C474.05 368.03 475.13 368.70 476.10 369.34C480.28 372.09 485.45 374.22 491.50 375.67C502.17 378.24 518.16 374.41 533.07 365.71C539.98 361.68 541.46 360.66 548.48 355.01C550.26 353.59 552.85 351.52 554.23 350.43C558.32 347.21 559.58 346.09 562.83 342.84C564.53 341.14 567.77 337.99 570.03 335.84C573.78 332.26 577.14 328.78 579.74 325.74C580.88 324.42 583.21 321.87 586.58 318.25C589.99 314.59 592.60 311.58 597.90 305.17C599.30 303.47 601.03 301.45 601.75 300.67C603.84 298.40 605.66 296.23 607.29 294.08C608.13 292.98 609.25 291.57 609.78 290.93C610.31 290.30 611.50 288.87 612.42 287.75C613.33 286.62 614.99 284.63 616.10 283.31C617.20 281.99 619.15 279.61 620.43 278.02C621.71 276.43 623.14 274.64 623.62 274.04C624.10 273.44 624.89 272.53 625.37 272.02C626.17 271.16 626.90 270.30 629.24 267.43C629.69 266.87 630.97 265.34 632.07 264.02C633.18 262.70 634.31 261.34 634.58 261.01C636.14 259.11 638.93 255.98 642.26 252.42C643.54 251.04 645.39 249.02 646.36 247.92C651.51 242.07 664.20 229.50 669.08 225.42C670.17 224.50 671.56 223.30 672.17 222.75C672.77 222.20 674.13 221.08 675.18 220.26C676.23 219.44 677.75 218.20 678.57 217.52C687.77 209.77 702.25 200.89 713.17 196.32C736.22 186.66 760.99 189.23 775.08 202.75C780.65 208.09 781.55 209.35 779.13 208.38C778.64 208.18 777.73 207.82 777.08 207.58C776.44 207.33 775.47 206.95 774.92 206.74C764.34 202.66 750.73 202.60 740.46 206.60C739.66 206.91 738.94 207.17 738.87 207.17C738.59 207.17 734.09 209.02 731.61 210.15C726.54 212.47 722.68 214.62 718.75 217.30C717.47 218.18 715.46 219.56 714.28 220.36C713.11 221.17 710.90 222.82 709.37 224.04C707.84 225.26 706.01 226.69 705.30 227.22C704.59 227.75 703.47 228.68 702.80 229.28C702.13 229.89 700.76 231.07 699.75 231.92C698.74 232.77 697.62 233.78 697.25 234.16C696.88 234.55 695.69 235.66 694.59 236.64C693.50 237.61 692.26 238.75 691.84 239.16C691.42 239.58 688.68 242.28 685.75 245.17C682.81 248.06 678.08 252.93 675.25 256.00C672.41 259.07 669.22 262.48 668.17 263.58C667.11 264.68 665.35 266.63 664.26 267.92C663.16 269.20 661.62 271.00 660.84 271.92C660.06 272.83 658.82 274.26 658.08 275.09C657.35 275.92 655.81 277.75 654.67 279.17C653.52 280.58 652.09 282.31 651.49 283.00C650.89 283.69 649.74 285.07 648.92 286.08C648.11 287.09 647.17 288.22 646.84 288.60C643.74 292.13 641.20 295.21 634.92 303.00C634.30 303.78 633.43 304.83 633.00 305.33C632.57 305.84 631.00 307.79 629.50 309.67C628.00 311.55 626.28 313.65 625.67 314.33C625.06 315.02 624.06 316.22 623.46 317.00C622.86 317.78 621.45 319.47 620.33 320.75C618.37 323.00 617.06 324.58 615.85 326.17C615.53 326.58 614.44 327.89 613.43 329.08C612.41 330.28 611.28 331.62 610.92 332.07C608.34 335.23 607.55 336.19 606.01 338.02C605.05 339.15 603.21 341.25 601.92 342.67C598.16 346.80 593.63 351.85 590.77 355.08C589.31 356.73 584.85 361.34 580.85 365.31C574.60 371.53 572.21 373.75 567.66 377.58C567.22 377.95 566.24 378.78 565.47 379.43C561.96 382.40 559.94 384.03 558.81 384.81C558.13 385.27 556.61 386.38 555.42 387.26C552.84 389.18 547.59 392.69 546.42 393.29C545.96 393.52 544.80 394.16 543.83 394.72C541.61 396.00 541.16 396.22 537.92 397.55C531.91 400.01 526.51 401.74 523.50 402.17C522.81 402.26 521.46 402.49 520.50 402.67C517.00 403.32 510.51 403.51 506.00 403.08ZM548.33 396.50C548.33 396.41 548.55 396.23 548.80 396.10C549.06 395.96 549.37 395.73 549.50 395.59C549.73 395.31 550.94 394.50 554.50 392.24C557.63 390.26 561.46 387.52 563.58 385.74C564.04 385.36 565.32 384.37 566.42 383.54C567.52 382.71 569.14 381.41 570.02 380.64C570.89 379.88 572.65 378.35 573.92 377.25C580.43 371.62 591.75 360.32 599.83 351.41C601.07 350.05 602.74 348.24 603.53 347.38C605.00 345.82 606.89 343.65 608.52 341.65C610.55 339.16 612.90 336.40 615.66 333.28C618.74 329.80 620.36 327.90 622.04 325.83C622.60 325.15 623.94 323.57 625.02 322.33C626.10 321.10 627.68 319.21 628.53 318.15C629.38 317.08 630.77 315.43 631.62 314.48C633.48 312.38 634.66 310.97 637.71 307.17C640.30 303.94 640.91 303.21 643.58 300.16C644.59 299.00 646.64 296.58 648.12 294.78C651.12 291.15 654.10 287.71 657.50 283.96C658.74 282.59 660.90 280.11 662.31 278.44C665.24 274.99 668.32 271.54 670.75 269.00C674.08 265.52 677.28 262.05 678.50 260.59C680.91 257.71 689.27 249.00 691.67 246.88C692.45 246.19 694.47 244.26 696.17 242.60C697.86 240.94 699.85 239.06 700.58 238.42C701.31 237.78 702.85 236.39 704.00 235.35C707.11 232.51 708.67 231.46 708.67 232.19C708.67 232.29 707.75 233.32 706.62 234.48C705.50 235.64 703.84 237.41 702.94 238.42C702.03 239.43 699.77 241.83 697.92 243.75C696.07 245.67 693.97 247.96 693.24 248.83C692.52 249.70 691.40 250.98 690.75 251.67C690.11 252.35 689.09 253.52 688.50 254.25C686.90 256.23 683.66 260.00 681.76 262.09C680.84 263.11 679.37 264.79 678.50 265.84C677.63 266.89 676.57 268.12 676.15 268.58C675.26 269.55 672.84 272.54 671.97 273.75C671.63 274.21 670.74 275.34 669.97 276.27C667.82 278.89 664.42 282.95 663.25 284.33C661.46 286.42 659.70 288.59 657.03 292.00C655.62 293.79 654.01 295.82 653.45 296.51C652.88 297.21 650.88 299.72 649.00 302.09C647.12 304.45 644.98 307.12 644.25 308.00C643.52 308.89 642.17 310.58 641.25 311.75C640.33 312.93 638.91 314.68 638.08 315.64C636.63 317.33 635.17 319.10 631.04 324.14C628.91 326.74 628.09 327.71 623.62 332.89C622.00 334.77 620.59 336.36 620.49 336.42C620.39 336.48 619.23 337.78 617.91 339.31C608.62 350.04 598.01 360.95 589.50 368.50C583.51 373.82 581.06 375.96 580.29 376.57C579.81 376.94 578.74 377.81 577.91 378.50C576.18 379.95 575.37 380.55 572.56 382.50C571.43 383.28 569.48 384.64 568.21 385.52C560.88 390.66 553.74 394.82 549.92 396.19C548.45 396.72 548.33 396.74 548.33 396.50Z"/></svg><span class="marca-txt">MAREA VERDE</span></a>
+    <nav class="tabs" role="tablist" aria-label="Secciones del sitio">
+      <span class="pista" aria-hidden="true"></span>
+      <a class="tab" role="tab" id="t-marea" href="#marea" aria-controls="p-marea" aria-selected="true">Marea Verde</a>
+      <a class="tab" role="tab" id="t-woolboom" href="#woolboom" aria-controls="p-woolboom" aria-selected="false">WoolBoom <span class="estrella">Producto estrella</span></a>
+      <a class="tab" role="tab" id="t-juegos" href="#juegos" aria-controls="p-juegos" aria-selected="false">Juegos</a>
+    </nav>
+    <a class="barra-cta" href="#contacto">Contacto</a>
+  </div>
+</header>
+
+<main>
+<!-- ================= PESTAÑA 1 · MAREA VERDE ================= -->
+<div class="panel" role="tabpanel" id="p-marea" aria-labelledby="t-marea" data-tab="marea" data-titulo="Marea Verde">
+
+  <section class="hero" id="inicio">
+    <canvas id="tide" aria-hidden="true"></canvas>
+    <div class="wrap hero-inner">
+      <div class="hero-logo" id="heroLogo"><img src="./img/marea-verde-sobre-oscuro.svg" alt="Marea Verde" width="1600" height="1038"></div>
+      <p class="lema">Innovación con propósito, desde la Patagonia</p>
+      <div class="hero-texto">
+        <div>
+          <span class="eyebrow">Nuestro producto estrella · WoolBoom</span>
+          <h1>Barrera de absorción de hidrocarburos con lana de oveja</h1>
+        </div>
+        <div>
+          <p>Lana ovina de la Región de Aysén, transformada en una propuesta para los sectores marítimo, portuario y acuícola.</p>
+          <div class="acciones">
+            <a class="btn" href="#woolboom">Conocer WoolBoom</a>
+            <a class="btn linea" href="#quienes">Quiénes somos</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="estrella-sec" id="estrella">
+    <div class="wrap">
+      <div class="estrella-cab">
+        <div><span class="eyebrow oscuro">Producto estrella</span>
+        <h2>WoolBoom, nuestra primera iniciativa</h2></div>
+        <p>WoolBoom es nuestro primer proyecto de innovación ambiental, nacido de la búsqueda de nuevas oportunidades de valorización para la lana ovina de la Región de Aysén.</p>
+      </div>
+      <div class="estrella-prod">
+        <img class="estrella-foto" src="./img/mockup-blanco.webp" alt="Barrera de absorción de hidrocarburos con lana de oveja, enrollada, con faja y logo de WoolBoom" width="1536" height="1024">
+        <div>
+          <h3>Barrera de absorción de hidrocarburos con lana de oveja</h3>
+          <p>A través de esta iniciativa desarrollamos una propuesta de barreras absorbentes de hidrocarburos elaboradas con lana patagónica, orientadas a futuras aplicaciones en estos sectores:</p>
+          <ul class="sectores"><li>Marítimo</li><li>Portuario</li><li>Acuícola</li></ul>
+          <a class="btn" href="#woolboom">Conocer WoolBoom</a>
+          <p class="mas">También puedes recorrer el camino de la lana en <a href="#juegos">cuatro juegos de la ovejita</a>.</p>
+        </div>
+      </div>
+      <div class="estrella-datos">
+        <div><h3>La lana</h3><p>El proyecto busca fortalecer una cadena de valor regional: ya hemos comenzado a adquirir lana a mujeres rurales de nuestra región, promoviendo nuevas oportunidades de comercialización para esta materia prima.</p></div>
+        <div><h3>Propósito de WoolBoom</h3><p>Desarrollar soluciones innovadoras a partir de recursos regionales, promoviendo la economía circular, la valorización de la lana ovina y la generación de oportunidades para las comunidades locales.</p></div>
+        <div><h3>Visión de WoolBoom</h3><p>Convertirse en un referente de innovación ambiental con identidad patagónica, demostrando que desde regiones es posible desarrollar soluciones de valor para nuevos mercados.</p></div>
+        <div><h3>Etapa actual</h3><p>Actualmente, WoolBoom se encuentra en etapa de desarrollo y validación técnica, con el apoyo de CORFO a través del programa Semilla Inicia.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="quienes" id="quienes">
+    <div class="wrap quienes-grid">
+      <div>
+        <h2>Quiénes somos</h2>
+        <p class="quienes-lead">Somos una empresa nacida en Puerto Aysén, en la Patagonia chilena, con el propósito de impulsar la innovación, la economía circular y el desarrollo de soluciones que contribuyan al cuidado del medioambiente.</p>
+        <div class="quienes-txt">
+          <p>Creemos que los recursos de nuestro territorio tienen un enorme potencial y que, a través de la creatividad, el conocimiento y la innovación, es posible generar nuevas oportunidades de valorización, transformando desafíos ambientales en iniciativas con impacto económico y social.</p>
+          <p>Nuestra visión de emprendimiento se basa en el aprovechamiento responsable de los recursos, la colaboración con actores locales y la búsqueda de soluciones que respondan a necesidades reales, con especial interés en la protección de los ecosistemas marinos.</p>
+        </div>
+      </div>
+      <div class="quienes-foto"><img src="./img/bosque.webp" alt="Vista aérea de bosque patagónico con el símbolo de Marea Verde" width="509" height="915" loading="lazy"></div>
+    </div>
+  </section>
+
+  <section aria-label="Lago patagónico">
+    <div class="marea" id="marea-lago">
+      <img src="./img/lago.webp" alt="Lago patagónico con un bote de madera y el logo de Marea Verde" width="1696" height="839">
+      <canvas id="mareaCanvas" aria-hidden="true"></canvas>
+    </div>
+    <div class="wrap"><p class="marea-texto">Queremos crecer manteniendo una conexión genuina con nuestro territorio, sus personas y los desafíos ambientales que nos motivan.</p></div>
+  </section>
+
+  <section class="mueve" id="proposito">
+    <div class="wrap">
+      <h2>Qué nos mueve</h2>
+      <div class="fila">
+        <h3>Nuestro propósito</h3>
+        <p>Promover la innovación y la economía circular mediante el desarrollo de soluciones que generen valor ambiental, económico y social, contribuyendo al aprovechamiento responsable de los recursos y al desarrollo de nuestro territorio.</p>
+      </div>
+      <div class="fila">
+        <h3>Nuestra visión</h3>
+        <p>Consolidarnos como una empresa de innovación ambiental reconocida por transformar desafíos en oportunidades, impulsando soluciones sostenibles con identidad patagónica y compromiso con las personas y el medioambiente.</p>
+      </div>
+      <div class="fila">
+        <h3>Nuestro compromiso</h3>
+        <p>En Marea Verde creemos que innovar no significa únicamente desarrollar nuevos productos, sino también descubrir nuevas formas de generar valor a partir de los recursos que nos rodean. <b>Marea Verde: transformamos recursos en oportunidades.</b></p>
+      </div>
+    </div>
+  </section>
+
+  <section class="principios" id="principios">
+    <div class="wrap">
+      <h2>Nuestros principios</h2>
+      <div class="ppl-grid">
+        <article class="ppl"><h3>Innovación responsable</h3><p>Creemos en el desarrollo de nuevas soluciones que respondan a necesidades reales, integrando investigación, experimentación y mejora continua.</p></article>
+        <article class="ppl"><h3>Economía circular</h3><p>Buscamos promover nuevas oportunidades de aprovechamiento y valorización de recursos y materiales, contribuyendo a modelos productivos más responsables.</p></article>
+        <article class="ppl"><h3>Comercio justo y colaboración</h3><p>Valoramos las relaciones comerciales transparentes, el reconocimiento del trabajo local y la construcción de vínculos de colaboración con proveedores, emprendimientos y comunidades.</p></article>
+        <article class="ppl"><h3>Desarrollo territorial</h3><p>Creemos que la innovación puede generar oportunidades desde las regiones, fortaleciendo las capacidades productivas y el desarrollo económico local.</p></article>
+        <article class="ppl"><h3>Compromiso ambiental</h3><p>Orientamos nuestro trabajo hacia el cuidado del medioambiente, con especial interés en la protección de los ecosistemas marinos y el uso responsable de los recursos naturales.</p></article>
+      </div>
+    </div>
+  </section>
+</div>
+
+<!-- ================= PESTAÑA 2 · WOOLBOOM ================= -->
+<div class="panel wb" role="tabpanel" id="p-woolboom" aria-labelledby="t-woolboom" data-tab="woolboom" data-titulo="WoolBoom · Marea Verde" hidden>
+
+  <section class="pa" aria-label="Portada WoolBoom">
+    <div class="pa-foto"><img src="./img/lago-woolboom.webp" alt="Lago patagónico al atardecer junto a un muelle, con el logo de WoolBoom" width="1696" height="839"></div>
+    <div class="wrap pa-txt">
+      <h1>Innovación con raíces patagónicas</h1>
+      <p>WoolBoom es un proyecto de innovación ambiental nacido en Puerto Aysén, en la Patagonia chilena, que busca transformar la lana ovina regional en una solución de mayor valor agregado.</p>
+      <div class="acciones"><a class="btn" href="#producto">Ver el producto</a><a class="btn ghost" href="#juegos">Jugar</a></div>
+    </div>
+  </section>
+
+  <section class="respaldo-wb" aria-label="Respaldo y territorio">
+    <div class="wrap">
+      <div class="respaldo-card">
+        <img class="corfo-logo" src="./img/corfo-apoyado.png" alt="Proyecto apoyado por Corfo" width="1551" height="785">
+        <div class="resp-item">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3l2.6 5.3 5.9.9-4.3 4.1 1 5.8L12 16.4 6.8 19.1l1-5.8L3.5 9.2l5.9-.9z"/></svg>
+          <div><b>Proyecto apoyado por Corfo</b><span>A través del programa Semilla Inicia.</span></div>
+        </div>
+        <div class="resp-item">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 21s-7-6.2-7-11.5A7 7 0 0 1 19 9.5C19 14.8 12 21 12 21z"/><circle cx="12" cy="9.5" r="2.5"/></svg>
+          <div><b>XI Región de Aysén</b><span>Un proyecto de Puerto Aysén, desarrollado por Marea Verde SpA.</span></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="producto" id="producto">
+    <div class="wrap">
+      <article class="prod-card">
+        <div class="prod-foto"><img src="./img/mockup-blanco.webp" alt="Barrera de absorción de hidrocarburos con lana de oveja, enrollada, con faja y logo de WoolBoom" width="1536" height="1024" loading="lazy"></div>
+        <div class="prod-txt">
+          <span class="eyebrow">El producto</span>
+          <h2>Nuestro producto estrella</h2>
+          <p class="prod-nombre">Barrera de absorción de hidrocarburos con lana de oveja</p>
+          <p class="justo">WoolBoom busca transformar la lana ovina regional en una solución de mayor valor agregado para enfrentar los desafíos de la contaminación por hidrocarburos en el mar.</p>
+          <p class="justo">Desarrollamos una propuesta de barreras absorbentes de hidrocarburos elaboradas con lana patagónica, orientadas a futuras aplicaciones en estos sectores:</p>
+          <ul class="sectores"><li>Marítimo</li><li>Portuario</li><li>Acuícola</li></ul>
+          <p class="etapa"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 3h6M10 3v6L4.5 18.5A1.7 1.7 0 0 0 6 21h12a1.7 1.7 0 0 0 1.5-2.5L14 9V3"/><path d="M7.5 15h9"/></svg><span>Actualmente en etapa de desarrollo y validación técnica, con el apoyo de CORFO a través del programa Semilla Inicia.</span></p>
+          <a class="btn" href="#contacto">Conversemos sobre WoolBoom</a>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  <section class="realidades">
+    <div class="wrap center">
+      <h2 class="sec">Dos realidades, una idea</h2>
+      <p class="sec-intro">WoolBoom surge de la conexión entre dos realidades de nuestra región.</p>
+      <div class="ecuacion">
+        <article class="termino">
+          <img src="./img/lana.webp" alt="Detalle de lana ovina natural" width="708" height="529" loading="lazy">
+          <div><h3>Lana subvalorada</h3><p>La lana ovina de nuestra región está subvalorada, pese a su enorme potencial.</p></div>
+        </article>
+        <span class="signo" aria-hidden="true">+</span>
+        <article class="termino">
+          <img src="./img/olas.webp" alt="Olas del mar vistas desde arriba" width="718" height="510" loading="lazy">
+          <div><h3>Mar que proteger</h3><p>Los sectores marítimo, portuario y acuícola necesitan nuevas soluciones frente a los hidrocarburos en el mar.</p></div>
+        </article>
+        <span class="signo" aria-hidden="true">=</span>
+        <article class="termino resultado">
+          <img src="./img/mockup-blanco.webp" alt="Barrera WoolBoom de lana de oveja" width="1536" height="1024" loading="lazy">
+          <div><h3>Una nueva solución</h3><p>Transformar esa lana en una barrera de absorción de hidrocarburos de mayor valor agregado.</p></div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section class="steps">
+    <div class="wrap center">
+      <h2 class="sec">De la lana al mar</h2>
+      <p class="sec-intro">El camino que estamos construyendo, paso a paso.</p>
+      <div class="steps-row">
+        <div class="step">
+          <div class="step-icon" aria-hidden="true"><svg viewBox="0 0 48 48" fill="none" stroke="#111" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="24" cy="24" r="17"/><path d="M9 17c9 1 21 9 26 20M7 26c8 0 16 5 20 14M15 9c10 2 22 12 26 22M28 8c5 2 11 8 13 14"/></svg></div>
+          <h3>Lana de la región</h3>
+          <p>Compramos lana a mujeres rurales de Aysén, reconociendo el trabajo local.</p>
+        </div>
+        <div class="step-arrow" aria-hidden="true"><svg viewBox="0 0 64 26" fill="none"><path class="ola" d="M2 13c7-11 13-11 20 0s13 11 20 0 13-11 20 0" stroke="currentColor" stroke-width="4" stroke-linecap="round"/></svg></div>
+        <div class="step">
+          <div class="step-icon" aria-hidden="true"><svg viewBox="0 0 48 48" fill="none" stroke="#111" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 6h10M21 6v13L9 38a3 3 0 0 0 3 4h24a3 3 0 0 0 3-4L27 19V6"/><path d="M15 30h18"/></svg></div>
+          <h3>Validación técnica</h3>
+          <p>Investigamos, experimentamos y validamos la solución con el apoyo de CORFO.</p>
+        </div>
+        <div class="step-arrow" aria-hidden="true"><svg viewBox="0 0 64 26" fill="none"><path class="ola" d="M2 13c7-11 13-11 20 0s13 11 20 0 13-11 20 0" stroke="currentColor" stroke-width="4" stroke-linecap="round"/></svg></div>
+        <div class="step">
+          <div class="step-icon" aria-hidden="true"><svg viewBox="0 0 48 48" fill="none" stroke="#111" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="24" cy="10" r="4"/><path d="M24 14v28M15 21h18M7 28c1 8 8 14 17 14s16-6 17-14"/></svg></div>
+          <h3>Aplicación futura</h3>
+          <p>Soluciones orientadas a los sectores marítimo, portuario y acuícola.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="personas" id="personas">
+    <div class="wrap about-grid">
+      <div class="fotos">
+        <img src="./img/ovejas.webp" alt="Ovejas pastando en la estepa patagónica al atardecer" width="564" height="583" loading="lazy">
+        <img src="./img/lana.webp" alt="Detalle de lana natural" width="708" height="529" loading="lazy">
+      </div>
+      <div>
+        <h2 class="sec">Valorizar la lana también es valorar a las personas</h2>
+        <p class="destacado">Ya hemos comenzado a adquirir lana a mujeres rurales de nuestra región.</p>
+        <p class="txt">Detrás de cada materia prima hay personas, conocimientos y tradiciones que forman parte de la identidad de Aysén. Aspiramos a una cadena de valor donde la innovación ambiental y el desarrollo rural avancen juntos.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="invita">
+    <div class="wrap">
+      <div class="invita-card">
+        <img src="./juegos/assets/oveja_capitana.webp" alt="" width="300" height="300" loading="lazy">
+        <div><h2>Conoce WoolBoom jugando</h2><p>Cuatro juegos de la ovejita: un simulador, un puzle, un arcade y láminas para pintar.</p></div>
+        <a class="btn" href="#juegos">Ir a los juegos</a>
+      </div>
+    </div>
+  </section>
+
+</div>
+
+<!-- ================= PESTAÑA 3 · JUEGOS ================= -->
+<div class="panel" role="tabpanel" id="p-juegos" aria-labelledby="t-juegos" data-tab="juegos" data-titulo="Juegos · Marea Verde" hidden>
+  <section class="jp" aria-label="Juegos de la ovejita">
+    <div class="wrap">
+      <div class="jp-ficha">
+        <img src="./img/woolboom-logo.webp" alt="WoolBoom" width="900" height="487">
+        <h1>Juega con la ovejita</h1>
+        <p>Cuatro juegos para conocer WoolBoom y el camino de la lana, desde la oveja hasta el mar.</p>
+        <div class="acciones"><a class="btn" href="#lista-juegos">Elegir un juego</a><a class="btn ghost" href="#woolboom">Conocer WoolBoom</a></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="juegos" id="lista-juegos">
+    <div class="wrap">
+      <h2 class="juegos-tit">Elige tu juego</h2>
+      <div class="juegos-grid">
+        <article class="juego">
+          <div class="portada"><img src="./juegos/assets/portada_lanita.webp" alt="La ovejita capitana en la lancha con la barrera de lana" loading="lazy"><span class="tipo">Simulador</span></div>
+          <div class="juego-cuerpo">
+            <h2>Operación Lanita</h2>
+            <p>Hay un derrame en la bahía. Esquila ovejas, lava la lana junto a las mujeres del lavadero, fabrica la barrera en la planta y sal en lancha a rodear la mancha.</p>
+            <div class="meta"><span>2–3 min</span><span>5 etapas</span></div>
+            <a class="btn" href="./juegos/lanita/index.html" data-juego="Operación Lanita">Jugar</a>
+          </div>
+        </article>
+        <article class="juego">
+          <div class="portada"><img src="./juegos/assets/portada_cuantas.webp" alt="La ovejita pensando frente a una pizarra, con el rebaño en fila" loading="lazy"><span class="tipo">Puzle</span></div>
+          <div class="juego-cuerpo">
+            <h2>¿Cuántas ovejas?</h2>
+            <p>Mira la mancha, mide su contorno en metros y calcula cuántas ovejas hacen falta para cerrar el anillo justo, sin que falte ni sobre lana.</p>
+            <div class="meta"><span>5 niveles</span><span>educativo</span></div>
+            <a class="btn" href="./juegos/cuantas/index.html" data-juego="¿Cuántas ovejas?">Jugar</a>
+          </div>
+        </article>
+        <article class="juego">
+          <div class="portada">
+            <img src="./juegos/assets/fondo_bahia.webp" alt="La bahía vista desde arriba, con la lancha y dos manchas" loading="lazy">
+            <img class="sp" src="./juegos/assets/lancha_arriba.webp" alt="" loading="lazy" style="width:24%;left:30%;top:44%">
+            <img class="sp" src="./juegos/assets/mancha_grande.webp" alt="" loading="lazy" style="width:20%;left:60%;top:22%">
+            <img class="sp" src="./juegos/assets/mancha_chica.webp" alt="" loading="lazy" style="width:10%;left:72%;top:66%">
+            <img class="sp" src="./juegos/assets/oveja_capitana.webp" alt="" loading="lazy" style="width:15%;right:4%;bottom:-6%">
+            <span class="tipo">Arcade</span>
+          </div>
+          <div class="juego-cuerpo">
+            <h2>Rebaño al Rescate</h2>
+            <p>Maneja la lancha, carga en el muelle la lana limpia que preparan las mujeres rurales y encierra las manchas con la estela de la barrera.</p>
+            <div class="meta"><span>60 s</span><span>puntaje</span></div>
+            <a class="btn" href="./juegos/rebano/index.html" data-juego="Rebaño al Rescate">Jugar</a>
+          </div>
+        </article>
+        <article class="juego">
+          <div class="portada"><img src="./juegos/assets/portada_colorear.webp" alt="Lámina de la ovejita capitana pintada con colores" loading="lazy"><span class="tipo">Colorear</span></div>
+          <div class="juego-cuerpo">
+            <h2>Pinta tu Ovejita</h2>
+            <p>Cinco láminas de la ovejita y del lavadero para rellenar con balde, pintar con pincel y decorar con stickers de WoolBoom.</p>
+            <div class="meta"><span>libre</span><span>5 láminas</span></div>
+            <a class="btn" href="./juegos/colorear/index.html" data-juego="Pinta tu Ovejita">Jugar</a>
+          </div>
+        </article>
+      </div>
+      <p class="nota">Juegos ilustrativos. Cifras aproximadas entregadas por Marea Verde. WoolBoom está en etapa de desarrollo y validación técnica.</p>
+    </div>
+  </section>
+</div>
+</main>
+
+<dialog class="sala" id="sala" aria-labelledby="salaTitulo">
+  <div class="sala-top">
+    <b id="salaTitulo">Juego</b>
+    <button type="button" id="salaCerrar">Cerrar</button>
+  </div>
+  <iframe id="salaFrame" title="Juego de WoolBoom" allow="autoplay; fullscreen"></iframe>
+</dialog>
+
+<!-- ================= PIE COMÚN ================= -->
+<footer id="contacto" tabindex="-1" style="outline:none">
+  <div class="wrap contacto">
+    <div>
+      <h2>Conversemos</h2>
+      <p>Si tu organización trabaja en el sector marítimo, portuario o acuícola, o comparte estos desafíos, escríbenos.</p>
+    </div>
+    <ul class="canales">
+      <li><a class="canal wsp" href="https://wa.me/56998540061" target="_blank" rel="noopener"><span class="canal-ico"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2zm0 18.2a8.2 8.2 0 0 1-4.2-1.2l-.3-.2-3 .8.8-2.9-.2-.3A8.2 8.2 0 1 1 12 20.2zm4.5-6.1c-.2-.1-1.5-.7-1.7-.8s-.4-.1-.6.1-.7.8-.8 1-.3.2-.5.1a6.7 6.7 0 0 1-3.3-2.9c-.3-.4.3-.4.7-1.3.1-.2 0-.3 0-.4l-.8-1.8c-.2-.5-.4-.4-.6-.4h-.5a1 1 0 0 0-.7.3 3 3 0 0 0-.9 2.2 5.2 5.2 0 0 0 1.1 2.7 11.8 11.8 0 0 0 4.5 4c1.7.7 2.3.8 3.2.6a2.7 2.7 0 0 0 1.8-1.3 2.2 2.2 0 0 0 .2-1.3c-.1-.1-.3-.2-.5-.3z"/></svg></span><span><small>WhatsApp</small><b>+56 9 9854 0061</b></span></a></li>
+      <li><a class="canal" href="mailto:mareaverde.patagonia@gmail.com"><span class="canal-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="3"/><path d="m4 7 8 6 8-6"/></svg></span><span><small>Correo</small><b>mareaverde.patagonia<wbr>@gmail.com</b></span></a></li>
+      <li><a class="canal" href="https://www.instagram.com/woolboom.cl/" target="_blank" rel="noopener"><span class="canal-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r=".8" fill="currentColor"/></svg></span><span><small>Instagram</small><b>@woolboom.cl</b></span></a></li>
+      <li><div class="canal"><span class="canal-ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 21s-7-6.2-7-11.5A7 7 0 0 1 19 9.5C19 14.8 12 21 12 21z"/><circle cx="12" cy="9.5" r="2.5"/></svg></span><span><small>Ubicación</small><b>Puerto Aysén, Región de Aysén, Chile</b></span></div></li>
+    </ul>
+  </div>
+  <div class="corfo">
+    <div class="wrap">
+      <div class="corfo-sello">
+        <img src="./img/corfo-apoyado.png" alt="Proyecto apoyado por Corfo" width="1551" height="785" loading="lazy">
+        <span>Programa Semilla Inicia</span>
+      </div>
+      <a href="https://corfo.gob.cl" target="_blank" rel="noopener">corfo.gob.cl</a>
+      <small>© 2026 Marea Verde · WoolBoom</small>
+    </div>
+  </div>
+</footer>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+<script>
+(function(){
+  var reduced = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var hasGsap = typeof gsap !== 'undefined';
+  if(reduced){ var lg = document.querySelector('.marca-logo'); if(lg && lg.pauseAnimations) lg.pauseAnimations(); }
+  if(hasGsap && typeof ScrollTrigger !== 'undefined') gsap.registerPlugin(ScrollTrigger);
+
+  /* ---------- Pestañas: cambian el contenido sin salir de la página ---------- */
+  var panels = {}, tabs = {}, actual = null;
+  document.querySelectorAll('.panel').forEach(function(p){ panels[p.dataset.tab] = p; });
+  document.querySelectorAll('.tab').forEach(function(t){ tabs[t.getAttribute('href').slice(1)] = t; });
+
+  /* Píldora de color que se desliza hasta la pestaña activa */
+  var pista = document.querySelector('.pista');
+  function moverPista(){
+    var t = tabs[actual]; if(!pista || !t) return;
+    pista.style.width = t.offsetWidth + 'px';
+    pista.style.transform = 'translateX(' + t.offsetLeft + 'px)';
+    if(!pista.classList.contains('lista')){ void pista.offsetWidth; pista.classList.add('lista'); }
+  }
+  addEventListener('resize', moverPista);
+  if(document.fonts && document.fonts.ready) document.fonts.ready.then(moverPista);
+
+  function mostrar(nombre, alInicio){
+    if(!panels[nombre]) nombre = 'marea';
+    var cambio = nombre !== actual;
+    Object.keys(panels).forEach(function(k){ panels[k].hidden = k !== nombre; tabs[k].setAttribute('aria-selected', k === nombre ? 'true' : 'false'); });
+    actual = nombre;
+    moverPista();
+    document.title = panels[nombre].dataset.titulo;
+    if(cambio){
+      dispatchEvent(new Event('resize'));
+      if(hasGsap && typeof ScrollTrigger !== 'undefined') ScrollTrigger.refresh();
+      if(alInicio) scrollTo({top:0, behavior:'instant'});
+    }
+  }
+  function segunHash(){
+    var h = decodeURIComponent(location.hash.slice(1));
+    if(!h || panels[h]){ mostrar(h || 'marea', true); return; }
+    var el = document.getElementById(h);
+    var dentro = el && el.closest('.panel');
+    if(dentro && dentro.dataset.tab !== actual){ mostrar(dentro.dataset.tab, false); requestAnimationFrame(function(){ el.scrollIntoView(); }); }
+  }
+  addEventListener('hashchange', segunHash);
+  segunHash();
+  /* Tocar la pestaña ya abierta lleva al inicio de esa pestaña */
+  Object.keys(tabs).forEach(function(k){
+    tabs[k].addEventListener('click', function(e){ if(location.hash === '#' + k){ e.preventDefault(); scrollTo({top:0, behavior: reduced ? 'auto' : 'smooth'}); } });
+  });
+  /* Flechas izquierda/derecha entre pestañas */
+  document.querySelector('.tabs').addEventListener('keydown', function(e){
+    if(e.key !== 'ArrowRight' && e.key !== 'ArrowLeft') return;
+    var orden = Object.keys(tabs), i = orden.indexOf(actual);
+    i = (i + (e.key === 'ArrowRight' ? 1 : orden.length - 1)) % orden.length;
+    tabs[orden[i]].focus(); location.hash = orden[i];
+  });
+
+  /* ---------- Juegos en una ventana sobre la página ---------- */
+  (function(){
+    var sala = document.getElementById('sala'), frame = document.getElementById('salaFrame'), titulo = document.getElementById('salaTitulo');
+    if(!sala || typeof sala.showModal !== 'function') return;
+    /* Al cerrar se descarga el juego al tiro (si sigue corriendo, el navegador demora todo lo demás) */
+    function cerrar(){ if(sala.open) sala.close(); frame.src = 'about:blank'; }
+    /* Cierre con Esc: también descarga el juego, salvo que ya se haya abierto otro */
+    sala.addEventListener('close', function(){ if(!sala.open) frame.src = 'about:blank'; });
+    function irA(dest){
+      /* close() ya devolvió el foco al botón Jugar; lo movemos al destino y saltamos sin animación */
+      dest.focus({preventScroll:true});
+      var y = dest.getBoundingClientRect().top + scrollY - document.querySelector('.barra').offsetHeight;
+      scrollTo({top:y, behavior:'instant'});
+    }
+    document.getElementById('salaCerrar').addEventListener('click', cerrar);
+    sala.addEventListener('click', function(e){ if(e.target === sala) cerrar(); });
+    document.querySelectorAll('[data-juego]').forEach(function(a){
+      a.addEventListener('click', function(e){
+        e.preventDefault();
+        titulo.textContent = a.dataset.juego;
+        frame.src = a.getAttribute('href');
+        sala.showModal(); frame.focus();
+      });
+    });
+    /* "Conversemos sobre WoolBoom" dentro de un juego: cierra y baja al contacto */
+    addEventListener('message', function(e){
+      var d = e.data;
+      if(!d || d.woolboom !== 'ir' || e.source !== frame.contentWindow) return;
+      if(d.hash === '#woolboom'){ cerrar(); location.hash = 'woolboom'; return; }
+      cerrar();
+      irA(document.getElementById('contacto'));
+    });
+  })();
+
+  /* ---------- Portada Marea: líneas de marea que se apartan al paso del cursor ---------- */
+  (function(){
+    var c = document.getElementById('tide'), x = c.getContext('2d');
+    var W, H, dpr, mx = -9999, my = -9999, sx = -9999, sy = -9999, on = true, start = performance.now();
+    var N = 30;
+    function size(){
+      dpr = Math.min(devicePixelRatio || 1, 2);
+      W = c.clientWidth; H = c.clientHeight;
+      c.width = W * dpr; c.height = H * dpr;
+      x.setTransform(dpr, 0, 0, dpr, 0, 0);
+      if(reduced) draw(4000);
+    }
+    function draw(t){
+      x.clearRect(0, 0, W, H);
+      var rise = reduced ? 1 : Math.min(1, (t) / 2200);
+      rise = 1 - Math.pow(1 - rise, 3);
+      sx += (mx - sx) * .08; sy += (my - sy) * .08;
+      var g = x.createLinearGradient(0, 0, W, 0);
+      g.addColorStop(0, '#006579'); g.addColorStop(.5, '#00B9BD'); g.addColorStop(1, '#4CA73D');
+      x.strokeStyle = g; x.lineWidth = 1.1;
+      for(var i = 0; i < N; i++){
+        var f = i / (N - 1);
+        var base = H * (.5 + .56 * f) + (1 - rise) * H * .7;
+        x.globalAlpha = .08 + .34 * f;
+        x.beginPath();
+        for(var px = -20; px <= W + 20; px += 14){
+          var y = base + 22 * Math.sin(px * .0036 + t * .00036 + i * .2) + 12 * Math.sin(px * .0092 - t * .00028 + i * .11);
+          var dx = px - sx, dy = base - sy;
+          y += (dy > 0 ? 1 : -1) * 52 * Math.exp(-(dx * dx + dy * dy) / 42000);
+          if(px === -20) x.moveTo(px, y); else x.lineTo(px, y);
+        }
+        x.stroke();
+      }
+      x.globalAlpha = 1;
+    }
+    function loop(now){ if(on && actual === 'marea') draw(now - start); requestAnimationFrame(loop); }
+    size(); addEventListener('resize', size);
+    if(reduced) return;
+    var hero = c.parentElement;
+    hero.addEventListener('pointermove', function(e){
+      var r = c.getBoundingClientRect();
+      mx = e.clientX - r.left; my = e.clientY - r.top;
+      if(sx < -9000){ sx = mx; sy = my; }
+    });
+    hero.addEventListener('pointerleave', function(){ mx = sx = -9999; my = sy = -9999; });
+    new IntersectionObserver(function(e){ on = e[0].isIntersecting; }).observe(hero);
+    requestAnimationFrame(loop);
+  })();
+
+  /* ---------- La marea sube: el color del lago entra con el scroll ---------- */
+  (function(){
+    var box = document.getElementById('marea-lago'), c = document.getElementById('mareaCanvas');
+    var x = c.getContext('2d'), img = box.querySelector('img'), W, H, dpr, vis = false, cur = 0;
+    function size(){
+      dpr = Math.min(devicePixelRatio || 1, 2);
+      W = box.clientWidth; H = box.clientHeight;
+      c.width = W * dpr; c.height = H * dpr;
+      x.setTransform(dpr, 0, 0, dpr, 0, 0);
+      if(reduced && W) cover();
+    }
+    function cover(){
+      var s = Math.max(W / img.naturalWidth, H / img.naturalHeight);
+      var w = img.naturalWidth * s, h = img.naturalHeight * s;
+      x.drawImage(img, (W - w) / 2, (H - h) / 2, w, h);
+    }
+    function target(){
+      var r = box.getBoundingClientRect(), v = innerHeight;
+      var p = (v - r.top - r.height * .12) / (v * .55 + r.height * .35);
+      return Math.max(.02, Math.min(1, p));
+    }
+    function draw(t){
+      cur += (target() - cur) * .08;
+      var level = H * 1.06 - cur * (H * 1.2);
+      x.clearRect(0, 0, W, H);
+      x.save(); x.beginPath(); x.moveTo(0, H);
+      var pts = [];
+      for(var px = 0; px <= W + 8; px += 8){
+        var y = level + 13 * Math.sin(px * .0085 + t * .0012) + 7 * Math.sin(px * .021 - t * .0019);
+        pts.push([px, y]); x.lineTo(px, y);
+      }
+      x.lineTo(W, H); x.closePath(); x.clip(); cover(); x.restore();
+      x.beginPath();
+      pts.forEach(function(p, i){ i ? x.lineTo(p[0], p[1]) : x.moveTo(p[0], p[1]); });
+      x.strokeStyle = 'rgba(255,255,255,.72)'; x.lineWidth = 2; x.stroke();
+    }
+    function loop(t){ if(vis && W) draw(t); requestAnimationFrame(loop); }
+    function boot(){
+      size(); addEventListener('resize', size);
+      if(reduced){ cur = 1; return; }
+      new IntersectionObserver(function(e){ vis = e[0].isIntersecting; }).observe(box);
+      requestAnimationFrame(loop);
+    }
+    if(img.complete && img.naturalWidth) boot(); else img.addEventListener('load', boot);
+  })();
+
+  if(!hasGsap || reduced) return;
+
+  /* Entrada del logo de Marea, solo si la página abre en esa pestaña */
+  if(actual === 'marea'){
+    var logo = document.getElementById('heroLogo');
+    logo.classList.add('entra');
+    gsap.fromTo(logo, {'--p':'-16%'}, {'--p':'125%', duration:2.3, ease:'power2.inOut', delay:.15,
+      onComplete:function(){ logo.classList.remove('entra'); }});
+  }
+
+  /* WoolBoom: la cuerda entre etapas se dibuja al llegar */
+  document.querySelectorAll('.ola').forEach(function(p, i){
+    var len = p.getTotalLength ? p.getTotalLength() || 80 : 80;
+    gsap.fromTo(p, {strokeDasharray:len, strokeDashoffset:len}, {strokeDashoffset:0, duration:.9, delay:i * .35, ease:'power2.inOut',
+      scrollTrigger:{trigger:'.steps-row', start:'top 78%', once:true}});
+  });
+})();
+</script>
+</body>
+</html>

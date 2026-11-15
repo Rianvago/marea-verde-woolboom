@@ -1,0 +1,7 @@
+# Configuración local de Netlify (vínculo con la cuenta de quien publica)
+.netlify/
+
+# Sistema
+Thumbs.db
+desktop.ini
+.DS_Store
